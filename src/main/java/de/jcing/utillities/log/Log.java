@@ -31,7 +31,7 @@ public class Log {
 	
 	protected static HashMap<LOG_LEVEL,Appender> _globalAppenders = new HashMap<>();
 
-	protected static HashMap<KEY, VALUE> _globalSettings;
+	protected static HashMap<KEY, VALUE> _globalSettings = new HashMap<>();
 	
 	static {
 		_globalAppenders.put(LOG_LEVEL.debug, CONSOLE);
