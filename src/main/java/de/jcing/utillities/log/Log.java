@@ -134,7 +134,7 @@ public class Log {
 		this.name += " - " + suffix;
 	}
 	
-	public void setLogLevel(LOG_LEVEL logLevel) {
+	public Log setLogLevel(LOG_LEVEL logLevel) {
 		switch(logLevel) {
 		case error:
 			level = LEVEL_ERROR;
@@ -145,6 +145,7 @@ public class Log {
 		case debug:
 			level = LEVEL_DEBUG;	
 		}
+		return this;
 	}
 	
 	
