@@ -6,9 +6,16 @@ public abstract class Appender {
 	
 	public static final String LINE_SEPERATOR = System.getProperty("line.separator");
 	
+	//TODO: make fully abstract - remove stream. Do Streamappender class for example
 	protected PrintStream stream;
-	
 
+	public Appender(PrintStream stream) {
+		this.stream = stream;
+	}
+	
+	public Appender() {
+		
+	}
 	
 	public abstract void print(String...strings);
 	
@@ -16,13 +23,9 @@ public abstract class Appender {
 		strings[strings.length-1] += LINE_SEPERATOR;
 		print(strings);
 	}
-	
-	public Appender(PrintStream stream) {
-		this.stream = stream;
-	}
-	
-	public Appender() {
 		
+	public PrintStream getStream() {
+		return stream;
 	}
 	
 	public static Appender createFromStream(PrintStream stream) {
@@ -42,6 +45,5 @@ public abstract class Appender {
 			}
 		};
 	}
-	
 	
 }

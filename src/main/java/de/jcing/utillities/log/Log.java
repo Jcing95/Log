@@ -22,16 +22,15 @@ public class Log {
 	public static enum VALUE {
 		on,
 		off,
-		
 	}
 	
 	private static final int LEVEL_DEBUG = 0;
 	private static final int LEVEL_INFO = 10;
 	private static final int LEVEL_ERROR = 20;
 	
-	protected static HashMap<LOG_LEVEL,Appender> _globalAppenders = new HashMap<>();
+	protected static HashMap<LOG_LEVEL,Appender> _globalAppenders = new HashMap<LOG_LEVEL,Appender>();
 
-	protected static HashMap<KEY, VALUE> _globalSettings = new HashMap<>();
+	protected static HashMap<KEY, VALUE> _globalSettings = new HashMap<KEY, VALUE>();
 	
 	static {
 		_globalAppenders.put(LOG_LEVEL.debug, CONSOLE);
@@ -68,10 +67,10 @@ public class Log {
 	
 	public Log(String name) {
 		this.name = name;
-		appenders = new HashMap<>();
+		appenders = new HashMap<LOG_LEVEL, Appender>();
 		appenders.putAll(_globalAppenders);
 		level = _logLevel;
-		settings = new HashMap<>();
+		settings = new HashMap<KEY,VALUE>();
 		settings.putAll(_globalSettings);
 	}
 	
@@ -146,6 +145,10 @@ public class Log {
 			level = LEVEL_DEBUG;	
 		}
 		return this;
+	}
+	
+	public Appender getAppender(LOG_LEVEL level) {
+		return appenders.get(level);
 	}
 	
 	
