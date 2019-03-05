@@ -2,10 +2,13 @@ package de.jcing.utillities.log;
 
 import java.util.HashMap;
 
+import de.jcing.utillities.log.appender.Appender;
+import de.jcing.utillities.log.appender.AppenderFactory;
+
 public class Log {
 	
-	public static final Appender CONSOLE = Appender.createFromStream(System.out);
-	public static final Appender CONSOLE_ERROR = Appender.createFromStream(System.err);
+	public static final Appender CONSOLE = AppenderFactory.getConsoleAppender();
+	public static final Appender CONSOLE_ERROR = AppenderFactory.getConsoleErrorAppender();
 	
 	public static enum LOG_LEVEL {
 		debug,
@@ -13,7 +16,7 @@ public class Log {
 		error
 	}
 	
-	public static enum KEY {
+	public static enum SETTINGS {
 		print_time,
 		print_names,
 		print_level		
@@ -30,15 +33,15 @@ public class Log {
 	
 	protected static HashMap<LOG_LEVEL,Appender> _globalAppenders = new HashMap<LOG_LEVEL,Appender>();
 
-	protected static HashMap<KEY, VALUE> _globalSettings = new HashMap<KEY, VALUE>();
+	protected static HashMap<SETTINGS, VALUE> _globalSettings = new HashMap<SETTINGS, VALUE>();
 	
 	static {
 		_globalAppenders.put(LOG_LEVEL.debug, CONSOLE);
 		_globalAppenders.put(LOG_LEVEL.info, CONSOLE);
 		_globalAppenders.put(LOG_LEVEL.error, CONSOLE_ERROR);
-		_globalSettings.put(KEY.print_level, VALUE.on);
-		_globalSettings.put(KEY.print_names, VALUE.on);
-		_globalSettings.put(KEY.print_time, VALUE.off);
+		_globalSettings.put(SETTINGS.print_level, VALUE.on);
+		_globalSettings.put(SETTINGS.print_names, VALUE.on);
+		_globalSettings.put(SETTINGS.print_time, VALUE.off);
 	}
 	
 	protected static boolean _printName = true;
@@ -55,7 +58,7 @@ public class Log {
 	protected String name;
 	
 	protected HashMap<LOG_LEVEL, Appender> appenders;
-	protected HashMap<KEY,VALUE> settings;
+	protected HashMap<SETTINGS,VALUE> settings;
 	
 	protected int level;
 	protected boolean mute;
@@ -70,7 +73,7 @@ public class Log {
 		appenders = new HashMap<LOG_LEVEL, Appender>();
 		appenders.putAll(_globalAppenders);
 		level = _logLevel;
-		settings = new HashMap<KEY,VALUE>();
+		settings = new HashMap<SETTINGS,VALUE>();
 		settings.putAll(_globalSettings);
 	}
 	
