@@ -23,4 +23,8 @@ public class PrintStreamAppender extends Appender {
 		else
 			this.stream.print(strings[0]);
 	}
+	
+	public PrintStream getStream() {
+		return stream;
+	}
 }
